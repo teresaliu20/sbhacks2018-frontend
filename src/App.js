@@ -1,15 +1,17 @@
 import React from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
-import Index from "./Pages/Index";
+import MapPage from "./pages/MapPage";
+import HomePage from "./pages/HomePage";
 import "./App.css";
 
 const App = () => (
-  <HashRouter>
+	<HashRouter>
     <Switch>
-      <Route exact path="/" component={Index} />
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/map" component={MapPage} />
       <Route render={() => "404 Page"} />
     </Switch>
-  </HashRouter>
+    </HashRouter>
 );
 
-export default App;
+export default (App);

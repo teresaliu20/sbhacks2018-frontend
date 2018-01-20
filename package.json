@@ -1,19 +1,30 @@
 {
-  "name": "tomchentw.github.io",
+  "name": "crime-report",
   "version": "0.1.0",
   "dependencies": {
     "classnames": "^2.2.5",
+    "connected-react-router": "^4.3.0",
+    "firebase": "^4.9.0",
+    "firebaseui": "^2.5.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-app-rewired": "^1.4.0",
     "react-dom": "^16.0.0",
     "react-geolocated": "^2.2.1",
     "react-github-fork-ribbon": "^0.5.1",
     "react-google-maps": "^8.5.0",
     "react-icons": "^2.2.7",
+    "react-redux": "^5.0.6",
+    "react-redux-firebase": "^2.0.1",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.14",
-    "recompose": "^0.26.0"
+    "recompose": "^0.26.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
   },
   "lint-staged": {
     "*.{js,jsx,json,css}": [
@@ -23,8 +34,8 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
