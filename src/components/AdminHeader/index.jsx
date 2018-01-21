@@ -10,7 +10,7 @@ const AdminHeader = ({ watchers, forks, repositories }) => (
     <h1 id="title">
       Alpha <span className="italic">ADMIN</span>
     </h1>
-    <Link to={`/`} id="home-button">
+    <Link to={`/`} id="home-admin-button">
       Home
     </Link>
   </div>
