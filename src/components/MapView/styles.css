@@ -140,6 +140,20 @@ img:before {
   margin: 10px;
 }
 
+.modal-inner #custom-button {
+  display: inline-block;
+  margin: 10px;
+}
+
+#custom-button:hover {
+  background-color: #360d60;
+  color: white;
+}
+
+.modal-inner #button-row {
+  text-align: center;
+}
+
 .modal-inner-marker {
   display: flex;
   align-items: center;

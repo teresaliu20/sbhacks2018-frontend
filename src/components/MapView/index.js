@@ -269,7 +269,7 @@ class MapView extends React.Component {
           <div className="modal-inner">
             <h1 className="title">Submit an Anonymous Report</h1>
             <p className="description">
-              Provide a keyword for what you are reporting{" "}
+              <p>Provide a keyword for what you are reporting </p>
               <input className="form-input" type="text" id="name" name="name" />
               <br />
               <p className="description">
@@ -291,6 +291,7 @@ class MapView extends React.Component {
                 id="severity"
                 name="severity"
               />
+              <br />
               <br />
               <div id="custom-button">
                 <CustomUploadButton
@@ -316,6 +317,7 @@ class MapView extends React.Component {
                 </CustomUploadButton>
               </div>
             </p>
+            <br />
             <hr />
             <div id="button-row">
               <div
