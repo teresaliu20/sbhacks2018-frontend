@@ -39,6 +39,19 @@ img:before {
   transition: 0.2s;
 }
 
+#publish-button {
+  background-color: #dddddd;
+  border-radius: 1px solid #360d60;
+  background-color: #4b0eda;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 120px;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  transition: 0.2s;
+}
+
 #time-button {
   border-radius: 1px solid #360d60;
   background-color: #de6e26;
@@ -104,6 +117,7 @@ img:before {
 
 .modal-inner .title {
   font-size: 24px;
+  text-align: center;
 }
 .modal-inner p {
   text-align: center;
