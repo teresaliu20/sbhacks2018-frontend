@@ -168,7 +168,6 @@ class MapView extends React.Component {
   ///////////////////////////
 
   onClickMap(data) {
-    console.log("here");
     if (this.selectPositionEnabled) {
       let lat = data.latLng.lat();
       let lng = data.latLng.lng();
