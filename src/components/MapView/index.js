@@ -185,6 +185,9 @@ class MapView extends React.Component {
       severity: document.getElementById("severity").value
     });
 
+    var tname = document.getElementById("name").value;
+    var tdesc = document.getElementById("description").value;
+
     axios
       .post(
         "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
@@ -202,6 +205,18 @@ class MapView extends React.Component {
         console.log("RESP", response);
         $("#message").hide();
         this.hideModal();
+        var msg = tname + " " + tdesc + " " + " (text 'STOP' to unsubscribe)";
+        axios
+          .get(
+            "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/notifyAll/" +
+              msg
+          )
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       });
   }
 
@@ -281,7 +296,9 @@ class MapView extends React.Component {
                   accept="image/*"
                   name="avatar"
                   filename={file =>
-                    this.state.userID + document.getElementById("name").value
+                    this.state.userID +
+                    "-" +
+                    document.getElementById("name").value
                   }
                   storageRef={firebase.storage().ref("images")}
                   style={{

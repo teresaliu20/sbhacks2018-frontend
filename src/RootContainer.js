@@ -26,7 +26,7 @@ const rrfConfig = {
 firebase.initializeApp(config); // <- new to v2.*.*
 
 var uiConfig = {
-  signInSuccessUrl: "http://localhost:3000/#/map",
+  signInSuccessUrl: "./#/map",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
