@@ -8,26 +8,52 @@
 #report-button {
   background-color: #dddddd;
   border-radius: 1px solid #360d60;
-  background-color: #360d60;
+  background-color: #a01c21;
   border-radius: 5px;
   font-size: 16px;
-  width: 80px;
+  width: 120px;
   color: white;
   padding: 10px;
   text-align: center;
+  transition: 0.2s;
 }
 
 #time-button {
-  background-color: #dddddd;
   border-radius: 1px solid #360d60;
-  background-color: #372db4;
+  background-color: #de6e26;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 120px;
+  color: white;
+  padding: 10px;
+  margin-top: 8px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+#report-button:hover {
+  background-color: #77161a;
+}
+
+#time-button:hover {
+  background-color: #bf5f22;
+}
+
+#you-button {
+  border: 1px solid #360d60;
+  color: #360d60;
   border-radius: 5px;
   font-size: 16px;
   width: 80px;
-  color: white;
-  padding: 8px 10px;
-  margin-top: 8px;
+  padding: 10px;
   text-align: center;
+  margin: auto;
+  transition: 0.2s;
+}
+
+#you-button:hover {
+  background-color: #360d60;
+  color: white;
 }
 
 #message {
@@ -45,7 +71,7 @@
   transform: translate(-50%, -50%);
 }
 
-.modal-inner .button {
+.button {
   border: 1px solid #360d60;
   color: #360d60;
   border-radius: 5px;
@@ -91,4 +117,75 @@
 .modal-inner #close-button {
   display: inline-block;
   margin: 10px;
+}
+
+.modal-inner-marker {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-inner-marker .alert-image {
+  height: 40px;
+}
+
+.modal-inner-marker .close-button {
+  width: 100px;
+  font-size: 16px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #360d60;
+  text-align: center;
+  color: #360d60;
+  margin: 10px;
+}
+
+.modal-inner-marker .line {
+  border-top: 1px solid #8c8b8b;
+  width: 100px;
+}
+
+.modal-inner-marker .close-button:hover {
+  background-color: #360d60;
+  color: white;
+}
+
+#alfie-box #alfie {
+  position: absolute;
+  bottom: 40px;
+  left: 25px;
+  height: 80px;
+  z-index: 11;
+}
+
+#alfie-box #speech {
+  position: absolute;
+  bottom: 40px;
+  left: 110px;
+  height: 80px;
+  z-index: 11;
+}
+
+#alfie-box #speech-text {
+  position: absolute;
+  bottom: 33px;
+  left: 157px;
+  color: #8c8b8b;
+  height: 80px;
+  width: 230px;
+  z-index: 11;
+}
+
+#alfie-box .bold {
+  font-weight: 800;
+  color: #360d60;
+}
+
+#alfie-box #speech-text p {
+  margin: 5px;
+}
+
+#alfie-box #time {
+  font-style: italic;
 }

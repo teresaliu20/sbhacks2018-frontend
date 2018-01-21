@@ -10,9 +10,8 @@ import {
 } from "react-google-maps";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
-import marker from "./icon.png";
+import marker from "./marker.png";
 import warning from "./warning.png";
-import MarkerBlock from "../MarkerBlock";
 import Modal from "react-modal";
 import nighttimeStyles from "./nighttimeStyles.json";
 import daytimeStyles from "./daytimeStyles.json";
@@ -22,6 +21,12 @@ import firebase from "firebase";
 import FileUploader from "react-firebase-file-uploader";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
 import axios from "axios";
+import alert3 from "./alert3.png";
+import alert2 from "./alert2.png";
+import alert1 from "./alert1.png";
+import alfie from "./alfie_light.png";
+import speech from "./speech.png";
+import TimeAgo from "javascript-time-ago";
 
 const customStyles = {
   overlay: {
@@ -48,18 +53,38 @@ class MapView extends React.Component {
     super(props);
   }
 
+  state = {
+    isOpen: false,
+    reports: [],
+    isOpen1: false,
+    isOpen2: false,
+    night: false,
+    lat: 0,
+    lng: 0,
+    userID: 0,
+    isMarkerOpen: false,
+    currentReport: null,
+    announceReport: null
+  };
+
   componentDidMount() {
     Modal.setAppElement("body");
     console.log(this.props.firebase);
     var DATAREF = this.props.firebase.database().ref();
     DATAREF.on("value", snapshot => {
-      let reportsArr = [];
-      let reports = snapshot.val();
-      for (var key in reports) {
-        reportsArr.push(reports[key]);
+      if (snapshot.val() && snapshot.val().reports) {
+        let reportsArr = [];
+        let reports = snapshot.val().reports;
+        console.log("HERE", snapshot.val().reports);
+        for (var key in reports) {
+          reportsArr.push(reports[key]);
+        }
+        this.setState({
+          reports: reportsArr,
+          announceReport: reportsArr[reportsArr.length - 1]
+        });
+        console.log(reportsArr);
       }
-      this.setState({ reports: reportsArr });
-      console.log(reportsArr);
     });
   }
 
@@ -118,6 +143,19 @@ class MapView extends React.Component {
     }, 10);
   }
 
+  onMarkerClose() {
+    this.setState({
+      isMarkerOpen: false
+    });
+  }
+
+  onMarkerOpen(report) {
+    this.setState({
+      currentReport: report,
+      isMarkerOpen: true
+    });
+  }
+
   // REPORT CRIME STUFF
   reportCrime() {
     var date = new Date();
@@ -169,17 +207,6 @@ class MapView extends React.Component {
 
   selectPositionEnabled = false;
 
-  state = {
-    isOpen: false,
-    reports: [],
-    isOpen1: false,
-    isOpen2: false,
-    night: false,
-    lat: 0,
-    lng: 0,
-    userID: 0
-  };
-
   openModal = () => {
     this.setState({
       isOpen: true
@@ -211,6 +238,7 @@ class MapView extends React.Component {
   }
 
   render() {
+    console.log("REPS", this.state.reports);
     var style = {
       styles: this.state.night ? daytimeStyles : nighttimeStyles
     };
@@ -310,7 +338,7 @@ class MapView extends React.Component {
           >
             <Marker
               position={{ lat: this.props.lat, lng: this.props.lng }}
-              icon={warning}
+              icon={marker}
               animation={window.google.maps.Animation.DROP}
               onClick={() => this.onOpenModal1()}
             />
@@ -322,7 +350,9 @@ class MapView extends React.Component {
                 style={customStyles}
               >
                 <h1>This is you!</h1>
-                <div onClick={() => this.onCloseModal1()}>Close</div>
+                <div id="you-button" onClick={() => this.onCloseModal1()}>
+                  Close
+                </div>
               </Modal>
             </div>
           </GoogleMap>
@@ -341,20 +371,69 @@ class MapView extends React.Component {
                 style={customStyles}
               >
                 <h1>This is you!</h1>
-                <div onClick={() => this.onCloseModal2()}>Close</div>
+                <div id="you-button" onClick={() => this.onCloseModal2()}>
+                  Close
+                </div>
               </Modal>
             </div>
             <Marker
               position={{ lat: this.props.lat, lng: this.props.lng }}
-              icon={warning}
+              icon={marker}
               animation={window.google.maps.Animation.DROP}
               onClick={() => this.onOpenModal2()}
             />
             {this.state.reports.map((report, i) => {
-              return <MarkerBlock report={report} key={i} />;
+              return (
+                <Marker
+                  position={{ lat: report.lat, lng: report.lng }}
+                  icon={warning}
+                  animation={window.google.maps.Animation.DROP}
+                  onClick={() => this.onMarkerOpen(report)}
+                />
+              );
             })}
           </GoogleMap>
         )}
+        {this.state.currentReport && (
+          <Modal
+            isOpen={this.state.isMarkerOpen}
+            contentLabel="Modal"
+            style={customStyles}
+          >
+            <div className="modal-inner-marker">
+              <h1>{this.state.currentReport.name}</h1>
+              <hr noshade="true" className="line" />
+              <h2>{this.state.currentReport.description}</h2>
+              <img
+                className="alert-image"
+                src={require(`./alert${this.state.currentReport.severity}.png`)}
+              />
+              <div
+                className="close-button"
+                onClick={() => this.onMarkerClose()}
+              >
+                Close
+              </div>
+            </div>
+          </Modal>
+        )}
+        <div id="alfie-box">
+          <img id="alfie" src={alfie} />
+          {this.state.announceReport && (
+            <div>
+              <img id="speech" src={speech} />
+              <div id="speech-text">
+                <p className="bold">
+                  {" " +
+                    this.state.announceReport.name +
+                    ": " +
+                    this.state.announceReport.description}
+                </p>
+                <p id="time">{this.state.announceReport.time}</p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
