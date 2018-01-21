@@ -16,6 +16,8 @@ import axios from "axios";
 
 const enhance = _.identity;
 
+console.log("HERE NISHIIIIRR");
+
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(255, 255, 255, 0.50)",
@@ -143,11 +145,6 @@ class ReactGoogleMaps extends Component {
     ) : this.props.coords ? (
       <div className="map-page">
         <Header key="header" />
-        <div className="buttons">
-          <div id="report-button" onClick={() => this.openReportModal()}>
-            Report
-          </div>
-        </div>
         <MapView
           key="map"
           lat={this.props.coords.latitude}
