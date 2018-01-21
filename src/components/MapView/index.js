@@ -20,11 +20,12 @@ import styles from "./styles.css";
 import $ from "jquery";
 import firebase from "firebase";
 import FileUploader from "react-firebase-file-uploader";
+import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
 import axios from "axios";
 
 const customStyles = {
   overlay: {
-    backgroundColor: "rgba(255, 255, 255, 0.50)",
+    backgroundColor: "rgba(0, 0, 0, 0.50)",
     zIndex: 10
   },
   content: {
@@ -221,28 +222,72 @@ class MapView extends React.Component {
           contentLabel="Modal"
           style={customStyles}
         >
-          <button onClick={this.hideModal}>X</button>
-          <h1>Submit an Anonymous Report</h1>
-          <p>
-            Provide a keyword for what you are reporting:{" "}
-            <input type="text" id="name" name="name" />
-            <br />
-            Briefly describe what you are reporting:{" "}
-            <input type="text" id="description" name="description" />
-            <br />
-            How severe is the event you are reporting? (1-3){" "}
-            <input type="text" id="severity" name="severity" />
-            <br />
-            <FileUploader
-              accept="image/*"
-              name="avatar"
-              filename={file =>
-                this.state.userID + document.getElementById("name").value
-              }
-              storageRef={firebase.storage().ref("images")}
-            />
-            <button onClick={() => this.reportCrime()}>Submit</button>
-          </p>
+          <div className="modal-inner">
+            <h1 className="title">Submit an Anonymous Report</h1>
+            <p className="description">
+              Provide a keyword for what you are reporting{" "}
+              <input className="form-input" type="text" id="name" name="name" />
+              <br />
+              <p className="description">
+                Briefly describe what you are reporting{" "}
+              </p>
+              <input
+                className="form-input"
+                type="text"
+                id="description"
+                name="description"
+              />
+              <br />
+              <p className="description">
+                How severe is the event you are reporting? (1-3){" "}
+              </p>
+              <input
+                className="form-input"
+                type="text"
+                id="severity"
+                name="severity"
+              />
+              <br />
+              <div id="custom-button">
+                <CustomUploadButton
+                  accept="image/*"
+                  name="avatar"
+                  filename={file =>
+                    this.state.userID + document.getElementById("name").value
+                  }
+                  storageRef={firebase.storage().ref("images")}
+                  style={{
+                    backgroundColor: "white",
+                    color: "#360d60;",
+                    padding: 10,
+                    borderRadius: 5,
+                    border: "1px solid #360d60",
+                    fontSize: 16,
+                    margin: 20
+                  }}
+                >
+                  Upload Image
+                </CustomUploadButton>
+              </div>
+            </p>
+            <hr />
+            <div id="button-row">
+              <div
+                id="close-button"
+                className="button"
+                onClick={this.hideModal}
+              >
+                Cancel
+              </div>
+              <div
+                id="submit-button"
+                className="button"
+                onClick={() => this.reportCrime()}
+              >
+                Submit
+              </div>
+            </div>
+          </div>
         </Modal>
         <div className="buttons">
           <div id="report-button" onClick={() => this.beginReport()}>
