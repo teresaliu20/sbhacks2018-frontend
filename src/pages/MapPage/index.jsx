@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import Modal from "react-modal";
 import $ from "jquery";
+import firebase from "firebase";
+import FileUploader from "react-firebase-file-uploader";
 
 const enhance = _.identity;
 
@@ -29,20 +31,18 @@ class ReactGoogleMaps extends Component {
     day = (day < 10 ? "0" : "") + day;
     var timestamp =
       year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-    var lat_ = super.props.coords.latitude;
-    var lng_ = super.props.coords.longitude;
 
     $.ajax({
       url: "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
       type: "POST",
       data: {
         user: "userisuser",
-        name: document.getElementById("name"),
-        description: document.getElementById("description"),
-        lat: lat_,
-        lng: lng_,
+        name: document.getElementById("name").value,
+        description: document.getElementById("description").value,
+        lat: "lat",
+        lng: "lng",
         time: timestamp,
-        severity: document.getElementById("severity")
+        severity: document.getElementById("severity").value
       },
       success: function(result) {
         alert(result);
@@ -110,6 +110,14 @@ class ReactGoogleMaps extends Component {
             How severe is the event you are reporting? (1-3){" "}
             <input type="text" id="severity" name="severity" />
             <br />
+            <FileUploader
+              accept="image/*"
+              name="avatar"
+              filename={file =>
+                this.state.user + document.getElementById("name").value
+              }
+              storageRef={firebase.storage().ref("images")}
+            />
             <button onClick={this.reportCrime}>Submit</button>
           </p>
         </Modal>
