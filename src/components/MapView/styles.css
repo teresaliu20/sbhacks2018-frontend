@@ -1,3 +1,24 @@
+body {
+  cursor: default;
+}
+
+img:before {
+  content: "Report brought to you by Alphie";
+  display: inline;
+  padding-left: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 0px; /* remove scrollbar space */
+  background: transparent; /* optional: just make scrollbar invisible */
+}
+
+#modal-img {
+  max-width: 300px;
+  max-height: 300px;
+  margin-bottom: 10px;
+}
+
 .buttons {
   position: absolute;
   z-index: 2;
@@ -175,6 +196,7 @@
   height: 80px;
   width: 230px;
   z-index: 11;
+  overflow: scroll;
 }
 
 #alfie-box .bold {

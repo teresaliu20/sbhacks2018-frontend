@@ -420,6 +420,16 @@ class MapView extends React.Component {
           >
             <div className="modal-inner-marker">
               <h1>{this.state.currentReport.name}</h1>
+              <img
+                id="modal-img"
+                src={
+                  "https://firebasestorage.googleapis.com/v0/b/sbhacks-corefour.appspot.com/o/images%2F" +
+                  this.state.userID +
+                  "-" +
+                  this.state.currentReport.name +
+                  ".jpg?alt=media"
+                }
+              />
               <hr noshade="true" className="line" />
               <h2>{this.state.currentReport.description}</h2>
               <img
