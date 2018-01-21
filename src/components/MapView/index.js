@@ -116,7 +116,7 @@ class MapView extends React.Component {
         this.state.reports === undefined ||
         this.state.night === undefined ? (
           <GoogleMap
-            defaultZoom={8}
+            defaultZoom={15}
             defaultCenter={{ lat: this.props.lat, lng: this.props.lng }}
             defaultOptions={style}
           >
@@ -140,7 +140,7 @@ class MapView extends React.Component {
           </GoogleMap>
         ) : (
           <GoogleMap
-            defaultZoom={8}
+            defaultZoom={15}
             defaultCenter={{ lat: this.props.lat, lng: this.props.lng }}
             defaultOptions={style}
           >

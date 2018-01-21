@@ -12,6 +12,7 @@ import Modal from "react-modal";
 import $ from "jquery";
 import firebase from "firebase";
 import FileUploader from "react-firebase-file-uploader";
+import axios from "axios";
 
 const enhance = _.identity;
 
@@ -49,33 +50,71 @@ class ReactGoogleMaps extends Component {
     var timestamp =
       year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
 
-    $.ajax({
-      url: "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
-      type: "POST",
-      data: {
-        user: "userisuser",
-        name: document.getElementById("name").value,
-        description: document.getElementById("description").value,
-        lat: "lat",
-        lng: "lng",
-        time: timestamp,
-        severity: document.getElementById("severity").value
-      },
-      success: function(result) {
-        alert(result);
+    axios
+      .post(
+        "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
+        {
+          user: this.state.userID,
+          name: document.getElementById("name").value,
+          description: document.getElementById("description").value,
+          lat: "lat",
+          lng: "lng",
+          time: timestamp,
+          severity: document.getElementById("severity").value
+        }
+      )
+      .then(response => {
+        console.log(response);
+      });
+  }
+
+  state = {
+    isOpen: false,
+    userID: ""
+  };
+
+  componentWillMount() {
+    var uid = "";
+    this.props.firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        uid = user.uid;
+        var providerData = user.providerData;
+        console.log("USER ID IS: ", uid);
+        this.setState({
+          userID: uid
+        });
+      } else {
+        // User is signed out.
+        // ...
       }
     });
   }
 
-  componentWillMount() {
-    // var DATAREF = this.props.firebase.database().ref();
-    // DATAREF.on("value", function(snapshot) {
-    //  console.log(snapshot.val())
-    // })
+  componentUpdate() {
+    var uid = "";
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        uid = user.uid;
+        var providerData = user.providerData;
+        console.log("USER ID IS: ", uid);
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
   }
-  state = {
-    isOpen: false
-  };
 
   openModal = () => {
     this.setState({
@@ -131,7 +170,7 @@ class ReactGoogleMaps extends Component {
               accept="image/*"
               name="avatar"
               filename={file =>
-                this.state.user + document.getElementById("name").value
+                this.state.userID + document.getElementById("name").value
               }
               storageRef={firebase.storage().ref("images")}
             />
