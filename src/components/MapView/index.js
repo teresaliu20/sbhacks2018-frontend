@@ -62,6 +62,29 @@ class MapView extends React.Component {
     });
   }
 
+  componentWillMount() {
+    var uid = "";
+    this.props.firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        uid = user.uid;
+        var providerData = user.providerData;
+        console.log("USER ID IS: ", uid);
+        this.setState({
+          userID: uid
+        });
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+  }
+
   onOpenModal1() {
     this.setState({
       isOpen1: true
@@ -110,16 +133,24 @@ class MapView extends React.Component {
     day = (day < 10 ? "0" : "") + day;
     var timestamp =
       year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-
-    console.log(this.state);
     var lat = this.state.lat;
     var lng = this.state.lng;
+
+    console.log("REQ", {
+      user: this.state.userID,
+      name: document.getElementById("name").value,
+      description: document.getElementById("description").value,
+      lat: lat,
+      lng: lng,
+      time: timestamp,
+      severity: document.getElementById("severity").value
+    });
 
     axios
       .post(
         "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
         {
-          user: "userisuser",
+          user: this.state.userID,
           name: document.getElementById("name").value,
           description: document.getElementById("description").value,
           lat: lat,
@@ -144,7 +175,8 @@ class MapView extends React.Component {
     isOpen2: false,
     night: false,
     lat: 0,
-    lng: 0
+    lng: 0,
+    userID: 0
   };
 
   openModal = () => {
@@ -205,7 +237,7 @@ class MapView extends React.Component {
               accept="image/*"
               name="avatar"
               filename={file =>
-                this.state.user + document.getElementById("name").value
+                this.state.userID + document.getElementById("name").value
               }
               storageRef={firebase.storage().ref("images")}
             />

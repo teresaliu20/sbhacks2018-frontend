@@ -36,87 +36,9 @@ const customStyles = {
 };
 
 class ReactGoogleMaps extends Component {
-  reportCrime() {
-    var date = new Date();
-    var hour = date.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
-    var min = date.getMinutes();
-    min = (min < 10 ? "0" : "") + min;
-    var sec = date.getSeconds();
-    sec = (sec < 10 ? "0" : "") + sec;
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
-    var day = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
-    var timestamp =
-      year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-
-    axios
-      .post(
-        "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
-        {
-          user: this.state.userID,
-          name: document.getElementById("name").value,
-          description: document.getElementById("description").value,
-          lat: "lat",
-          lng: "lng",
-          time: timestamp,
-          severity: document.getElementById("severity").value
-        }
-      )
-      .then(response => {
-        console.log(response);
-      });
-  }
-
   state = {
-    isOpen: false,
-    userID: ""
+    isOpen: false
   };
-
-  componentWillMount() {
-    var uid = "";
-    this.props.firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        uid = user.uid;
-        var providerData = user.providerData;
-        console.log("USER ID IS: ", uid);
-        this.setState({
-          userID: uid
-        });
-      } else {
-        // User is signed out.
-        // ...
-      }
-    });
-  }
-
-  componentUpdate() {
-    var uid = "";
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        uid = user.uid;
-        var providerData = user.providerData;
-        console.log("USER ID IS: ", uid);
-      } else {
-        // User is signed out.
-        // ...
-      }
-    });
-  }
 
   openModal = () => {
     this.setState({
@@ -150,30 +72,6 @@ class ReactGoogleMaps extends Component {
           lat={this.props.coords.latitude}
           lng={this.props.coords.longitude}
         />
-        <Modal isOpen={this.state.isOpen} contentLabel="Modal">
-          <button onClick={this.hideModal}>X</button>
-          <h1>Submit an Anonymous Report</h1>
-          <p>
-            Provide a keyword for what you are reporting:{" "}
-            <input type="text" id="name" name="name" />
-            <br />
-            Briefly describe what you are reporting:{" "}
-            <input type="text" id="description" name="description" />
-            <br />
-            How severe is the event you are reporting? (1-3){" "}
-            <input type="text" id="severity" name="severity" />
-            <br />
-            <FileUploader
-              accept="image/*"
-              name="avatar"
-              filename={file =>
-                this.state.userID + document.getElementById("name").value
-              }
-              storageRef={firebase.storage().ref("images")}
-            />
-            <button onClick={this.reportCrime}>Submit</button>
-          </p>
-        </Modal>
       </div>
     ) : (
       <div className="loading-message">Getting the location data&hellip; </div>
