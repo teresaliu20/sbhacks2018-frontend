@@ -109,7 +109,6 @@ img:before {
 .modal-inner .description {
   text-align: center;
   font-size: 14px;
-  width: 80%;
 }
 .modal-inner #submit-button:hover {
   color: white;
@@ -188,7 +187,7 @@ img:before {
   color: white;
 }
 
-.description {
+.modal-inner-marker .description {
   font-size: 16px;
   width: 80%;
 }
