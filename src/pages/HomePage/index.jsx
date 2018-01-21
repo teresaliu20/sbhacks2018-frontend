@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './styles.css';
-import firebase from 'firebase';
-import firebaseui from 'firebaseui';
-import firebasestyles from './firebaseui.css';
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import React, { Component } from "react";
+import styles from "./styles.css";
+import firebase from "firebase";
+import firebaseui from "firebaseui";
+import firebasestyles from "./firebaseui.css";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 
 // var config = {
 //       apiKey: process.env.REACT_APP_FIREBASE_KEY,
@@ -36,32 +35,30 @@ import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 
 //   var DATAREF = firebase.database().ref();
 
-class HomePage extends React.Component {
-	componentWillMount() {
-    // var DATAREF = this.props.firebase.database().ref(); 
+class HomePage extends Component {
+  componentWillMount() {
+    // var DATAREF = this.props.firebase.database().ref();
     // DATAREF.on("value", function(snapshot) {
     //  console.log(snapshot.val())
     // })
-	}
+  }
 
-	render() {
-		return (
-			<div className='home-page'>
-				<h1 id='title'>Crime Report</h1>
-				<div id="firebaseui-auth-container"></div>
-			</div>
-		)
-	}
+  render() {
+    return (
+      <div className="home-page">
+        <h1 id="title">Crime Report</h1>
+        <div id="firebaseui-auth-container" />
+      </div>
+    );
+  }
 }
 
 export default compose(
   firebaseConnect([
-    'todos' // { path: '/todos' } // object notation
+    "todos" // { path: '/todos' } // object notation
   ]),
-  connect(
-    (state) => ({
-      todos: state.firebase.data.todos,
-      profile: state.firebase.profile // load profile
-    })
-  )
-)(HomePage)
+  connect(state => ({
+    todos: state.firebase.data.todos,
+    profile: state.firebase.profile // load profile
+  }))
+)(HomePage);
