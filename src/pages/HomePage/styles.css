@@ -1,28 +1,37 @@
 .home-page {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(#0a0b17, #1c1e62);
 }
 
 .home-page #title {
-	color: #360D60;
-	font-size: 36px;
+  color: white;
+  font-size: 36px;
+}
+
+.home-page #phrase {
+  color: #ddd;
 }
 
 .home-page #map-button {
-	width: 100px;
-	font-size: 16px;
-	padding: 8px 10px;
-	border-radius: 5px;
-	border: 1px solid #360D60;
-	text-align: center;
-	color: #360D60;
+  width: 100px;
+  font-size: 16px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #360d60;
+  text-align: center;
+  color: #360d60;
 }
 
 .home-page #map-button:hover {
-	background-color: #360D60;
-	color: white;
+  background-color: #360d60;
+  color: white;
+}
+
+.home-page #logo {
+  height: 150px;
 }
