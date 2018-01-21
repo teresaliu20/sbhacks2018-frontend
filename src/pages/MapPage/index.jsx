@@ -36,7 +36,7 @@ class ReactGoogleMaps extends Component {
       url: "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
       type: "POST",
       data: {
-        user: "userisuser",
+        user: this.userID,
         name: document.getElementById("name").value,
         description: document.getElementById("description").value,
         lat: "lat",
@@ -56,9 +56,34 @@ class ReactGoogleMaps extends Component {
     //  console.log(snapshot.val())
     // })
   }
+
   state = {
-    isOpen: false
+    isOpen: false,
+    userID: ""
   };
+
+  userID = "";
+
+  componentDidUpdate() {
+    var uid = "";
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        uid = user.uid;
+        var providerData = user.providerData;
+        console.log("USER ID IS: ", uid);
+        this.userID = uid;
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+  }
 
   openModal = () => {
     this.setState({
@@ -110,6 +135,7 @@ class ReactGoogleMaps extends Component {
             How severe is the event you are reporting? (1-3){" "}
             <input type="text" id="severity" name="severity" />
             <br />
+            <div>User ID is: {this.state.userID}</div>
             <FileUploader
               accept="image/*"
               name="avatar"
