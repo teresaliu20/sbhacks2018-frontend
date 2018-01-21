@@ -12,6 +12,23 @@ import Modal from "react-modal";
 
 const enhance = _.identity;
 
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(255, 255, 255, 0.50)",
+    zIndex: 10
+  },
+  content: {
+    top: "70%",
+    left: "70%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    color: "#360D60",
+    fontFamily: "Lato"
+  }
+};
+
 class ReactGoogleMaps extends Component {
   componentWillMount() {
     // var DATAREF = this.props.firebase.database().ref();
@@ -39,6 +56,7 @@ class ReactGoogleMaps extends Component {
     console.log("Clicked report!");
     this.openModal();
   }
+
   render() {
     return !this.props.isGeolocationAvailable ? (
       <div className="loading-message">
