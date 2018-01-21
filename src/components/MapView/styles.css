@@ -1,11 +1,44 @@
-.map-page #time-button {
+.buttons {
+  position: absolute;
+  z-index: 2;
+  top: 110px;
+  right: 12px;
+}
+
+#report-button {
   background-color: #dddddd;
   border-radius: 1px solid #360d60;
-  background-color: #4b29e1;
+  background-color: #360d60;
   border-radius: 5px;
   font-size: 16px;
-  color: white;
   width: 60px;
+  color: white;
   padding: 8px 10px;
-  margin-top: 43px;
+}
+
+#time-button {
+  background-color: #dddddd;
+  border-radius: 1px solid #360d60;
+  background-color: #372db4;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 60px;
+  color: white;
+  padding: 8px 10px;
+  margin-top: 8px;
+}
+
+#message {
+  display: none;
+  color: white;
+  position: absolute;
+  z-index: 5;
+  top: 200px;
+  left: 50%;
+  color: white;
+  font-size: 21px;
+  padding: 15px 25px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
 }

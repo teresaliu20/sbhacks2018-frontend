@@ -15,6 +15,8 @@ import FileUploader from "react-firebase-file-uploader";
 
 const enhance = _.identity;
 
+console.log("HERE NISHIIIIRR");
+
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(255, 255, 255, 0.50)",
@@ -33,67 +35,6 @@ const customStyles = {
 };
 
 class ReactGoogleMaps extends Component {
-  reportCrime() {
-    var date = new Date();
-    var hour = date.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
-    var min = date.getMinutes();
-    min = (min < 10 ? "0" : "") + min;
-    var sec = date.getSeconds();
-    sec = (sec < 10 ? "0" : "") + sec;
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
-    var day = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
-    var timestamp =
-      year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-
-    $.ajax({
-      url: "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
-      type: "POST",
-      data: {
-        user: "userisuser",
-        name: document.getElementById("name").value,
-        description: document.getElementById("description").value,
-        lat: "lat",
-        lng: "lng",
-        time: timestamp,
-        severity: document.getElementById("severity").value
-      },
-      success: function(result) {
-        alert(result);
-      }
-    });
-  }
-
-  componentWillMount() {
-    // var DATAREF = this.props.firebase.database().ref();
-    // DATAREF.on("value", function(snapshot) {
-    //  console.log(snapshot.val())
-    // })
-  }
-  state = {
-    isOpen: false
-  };
-
-  openModal = () => {
-    this.setState({
-      isOpen: true
-    });
-  };
-
-  hideModal = () => {
-    this.setState({
-      isOpen: false
-    });
-  };
-
-  openReportModal() {
-    console.log("Clicked report!");
-    this.openModal();
-  }
-
   render() {
     return !this.props.isGeolocationAvailable ? (
       <div className="loading-message">
@@ -104,40 +45,11 @@ class ReactGoogleMaps extends Component {
     ) : this.props.coords ? (
       <div className="map-page">
         <Header key="header" />
-        <div className="buttons">
-          <div id="report-button" onClick={() => this.openReportModal()}>
-            Report
-          </div>
-        </div>
         <MapView
           key="map"
           lat={this.props.coords.latitude}
           lng={this.props.coords.longitude}
         />
-        <Modal isOpen={this.state.isOpen} contentLabel="Modal">
-          <button onClick={this.hideModal}>X</button>
-          <h1>Submit an Anonymous Report</h1>
-          <p>
-            Provide a keyword for what you are reporting:{" "}
-            <input type="text" id="name" name="name" />
-            <br />
-            Briefly describe what you are reporting:{" "}
-            <input type="text" id="description" name="description" />
-            <br />
-            How severe is the event you are reporting? (1-3){" "}
-            <input type="text" id="severity" name="severity" />
-            <br />
-            <FileUploader
-              accept="image/*"
-              name="avatar"
-              filename={file =>
-                this.state.user + document.getElementById("name").value
-              }
-              storageRef={firebase.storage().ref("images")}
-            />
-            <button onClick={this.reportCrime}>Submit</button>
-          </p>
-        </Modal>
       </div>
     ) : (
       <div className="loading-message">Getting the location data&hellip; </div>

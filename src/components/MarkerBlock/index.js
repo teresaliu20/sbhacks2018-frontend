@@ -43,7 +43,6 @@ class MarkerBlock extends Component {
   }
 
   render() {
-    console.log("HERE", this.props.report);
     return (
       <div>
         <Marker
