@@ -273,7 +273,9 @@ class MapView extends React.Component {
           <div className="modal-inner">
             <h1 className="title">Submit an Anonymous Report</h1>
             <p className="description">
-              <p>Provide a keyword for what you are reporting </p>
+              <p className="description">
+                Provide a keyword for what you are reporting{" "}
+              </p>
               <input className="form-input" type="text" id="name" name="name" />
               <br />
               <p className="description">
@@ -435,8 +437,9 @@ class MapView extends React.Component {
                   ".jpg?alt=media"
                 }
               />
-              <hr noshade="true" className="line" />
-              <h2>{this.state.currentReport.description}</h2>
+              <h2 className="description">
+                {this.state.currentReport.description}
+              </h2>
               <img
                 className="alert-image"
                 src={require(`./alert${this.state.currentReport.severity}.png`)}
