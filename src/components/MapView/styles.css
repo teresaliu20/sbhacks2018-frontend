@@ -108,7 +108,11 @@ img:before {
 .modal-inner p {
   text-align: center;
 }
-.modal-inner .button:hover {
+.modal-inner #submit-button:hover {
+  color: white;
+  background-color: #360d60;
+}
+.modal-inner #close-button:hover {
   color: white;
   background-color: #360d60;
 }
@@ -143,11 +147,6 @@ img:before {
 .modal-inner #custom-button {
   display: inline-block;
   margin: 10px;
-}
-
-#custom-button:hover {
-  background-color: #360d60;
-  color: white;
 }
 
 .modal-inner #button-row {

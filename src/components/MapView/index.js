@@ -304,11 +304,10 @@ class MapView extends React.Component {
                   }
                   storageRef={firebase.storage().ref("images")}
                   style={{
-                    backgroundColor: "white",
-                    color: "#360d60;",
+                    backgroundColor: "#f5ae2a",
+                    color: "white",
                     padding: 10,
                     borderRadius: 5,
-                    border: "1px solid #360d60",
                     fontSize: 16,
                     margin: 20
                   }}
