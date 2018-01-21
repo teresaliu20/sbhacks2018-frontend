@@ -15,6 +15,23 @@ import FileUploader from "react-firebase-file-uploader";
 
 const enhance = _.identity;
 
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(255, 255, 255, 0.50)",
+    zIndex: 10
+  },
+  content: {
+    top: "70%",
+    left: "70%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    color: "#360D60",
+    fontFamily: "Lato"
+  }
+};
+
 class ReactGoogleMaps extends Component {
   reportCrime() {
     var date = new Date();

@@ -1,0 +1,11 @@
+.map-page #time-button {
+  background-color: #dddddd;
+  border-radius: 1px solid #360d60;
+  background-color: #4b29e1;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  width: 60px;
+  padding: 8px 10px;
+  margin-top: 43px;
+}
