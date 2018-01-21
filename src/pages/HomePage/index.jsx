@@ -11,7 +11,8 @@ class HomePage extends Component {
   render() {
     return (
       <div className="home-page">
-        <h1 id="title">Crime Report</h1>
+        <h1 id="title">Alpha</h1>
+        <h2>Security through numbers</h2>
         <div id="firebaseui-auth-container" />
       </div>
     );

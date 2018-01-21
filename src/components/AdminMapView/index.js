@@ -332,7 +332,7 @@ class MapView extends React.Component {
         </Modal>
         <div className="buttons">
           <div id="publish-button" onClick={() => this.beginReport()}>
-            Publish Reporting
+            Publish Report
           </div>
         </div>
         {this.state === null ||
