@@ -9,6 +9,9 @@ import styles from "./styles.css";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import Modal from "react-modal";
+import $ from "jquery";
+import firebase from "firebase";
+import FileUploader from "react-firebase-file-uploader";
 
 const enhance = _.identity;
 
@@ -30,6 +33,40 @@ const customStyles = {
 };
 
 class ReactGoogleMaps extends Component {
+  reportCrime() {
+    var date = new Date();
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+    var min = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+    var sec = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+    var day = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+    var timestamp =
+      year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+
+    $.ajax({
+      url: "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
+      type: "POST",
+      data: {
+        user: "userisuser",
+        name: document.getElementById("name").value,
+        description: document.getElementById("description").value,
+        lat: "lat",
+        lng: "lng",
+        time: timestamp,
+        severity: document.getElementById("severity").value
+      },
+      success: function(result) {
+        alert(result);
+      }
+    });
+  }
+
   componentWillMount() {
     // var DATAREF = this.props.firebase.database().ref();
     // DATAREF.on("value", function(snapshot) {
@@ -78,8 +115,28 @@ class ReactGoogleMaps extends Component {
           lng={this.props.coords.longitude}
         />
         <Modal isOpen={this.state.isOpen} contentLabel="Modal">
-          <h1>Modal Content</h1>
-          <p>Etc.</p>
+          <button onClick={this.hideModal}>X</button>
+          <h1>Submit an Anonymous Report</h1>
+          <p>
+            Provide a keyword for what you are reporting:{" "}
+            <input type="text" id="name" name="name" />
+            <br />
+            Briefly describe what you are reporting:{" "}
+            <input type="text" id="description" name="description" />
+            <br />
+            How severe is the event you are reporting? (1-3){" "}
+            <input type="text" id="severity" name="severity" />
+            <br />
+            <FileUploader
+              accept="image/*"
+              name="avatar"
+              filename={file =>
+                this.state.user + document.getElementById("name").value
+              }
+              storageRef={firebase.storage().ref("images")}
+            />
+            <button onClick={this.reportCrime}>Submit</button>
+          </p>
         </Modal>
       </div>
     ) : (
