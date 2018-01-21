@@ -253,7 +253,9 @@ class MapView extends React.Component {
                   accept="image/*"
                   name="avatar"
                   filename={file =>
-                    this.state.userID + document.getElementById("name").value
+                    this.state.userID +
+                    "-" +
+                    document.getElementById("name").value
                   }
                   storageRef={firebase.storage().ref("images")}
                   style={{
