@@ -200,7 +200,7 @@ class MapView extends React.Component {
           lat: lat,
           lng: lng,
           time: timestamp,
-          severity: document.getElementById("severity").value
+          severity: 4
         }
       )
       .then(response => {
