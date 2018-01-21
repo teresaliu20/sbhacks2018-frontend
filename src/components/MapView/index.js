@@ -409,7 +409,7 @@ class MapView extends React.Component {
               return (
                 <Marker
                   position={{ lat: report.lat, lng: report.lng }}
-                  icon={warning}
+                  icon={report.severity === 4 ? special : warning}
                   animation={window.google.maps.Animation.DROP}
                   onClick={() => this.onMarkerOpen(report)}
                 />
