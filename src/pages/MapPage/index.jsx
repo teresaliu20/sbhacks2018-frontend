@@ -15,17 +15,34 @@ const enhance = _.identity;
 
 class ReactGoogleMaps extends Component {
   reportCrime() {
+    var date = new Date();
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+    var min = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+    var sec = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+    var day = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+    var timestamp =
+      year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+    var lat_ = super.props.coords.latitude;
+    var lng_ = super.props.coords.longitude;
+
     $.ajax({
       url: "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
       type: "POST",
       data: {
         user: "userisuser",
-        name: "Fire",
-        description: "I saw smoke coming out of MCC.",
-        lat: "42.378036",
-        lng: "-71.118340",
-        time: "01-20-2018-17:44:56",
-        severity: "2"
+        name: document.getElementById("name"),
+        description: document.getElementById("description"),
+        lat: lat_,
+        lng: lng_,
+        time: timestamp,
+        severity: document.getElementById("severity")
       },
       success: function(result) {
         alert(result);
@@ -85,13 +102,13 @@ class ReactGoogleMaps extends Component {
           <h1>Submit an Anonymous Report</h1>
           <p>
             Provide a keyword for what you are reporting:{" "}
-            <input type="text" name="name" />
+            <input type="text" id="name" name="name" />
             <br />
             Briefly describe what you are reporting:{" "}
-            <input type="text" name="description" />
+            <input type="text" id="description" name="description" />
             <br />
             How severe is the event you are reporting? (1-3){" "}
-            <input type="text" name="severity" />
+            <input type="text" id="severity" name="severity" />
             <br />
             <button onClick={this.reportCrime}>Submit</button>
           </p>
