@@ -184,7 +184,7 @@ class MapView extends React.Component {
       lat: lat,
       lng: lng,
       time: timestamp,
-      severity: document.getElementById("severity").value
+      severity: 4
     });
 
     var tname = document.getElementById("name").value;
@@ -271,13 +271,13 @@ class MapView extends React.Component {
           style={customStyles}
         >
           <div className="modal-inner">
-            <h1 className="title">Submit an Anonymous Report</h1>
+            <h1 className="title">Submit a police report</h1>
             <p className="description">
               <p>Provide a keyword for what you are reporting </p>
               <input className="form-input" type="text" id="name" name="name" />
               <br />
               <p className="description">
-                Briefly describe what you are reporting{" "}
+                Describe what you are reporting and advice for residents{" "}
               </p>
               <input
                 className="form-input"
@@ -286,23 +286,13 @@ class MapView extends React.Component {
                 name="description"
               />
               <br />
-              <p className="description">
-                How severe is the event you are reporting? (1-3){" "}
-              </p>
-              <input
-                className="form-input"
-                type="text"
-                id="severity"
-                name="severity"
-              />
-              <br />
               <br />
               <div id="custom-button">
                 <CustomUploadButton
                   accept="image/*"
                   name="avatar"
                   filename={file =>
-                    this.state.user +
+                    this.state.userID +
                     "-" +
                     document.getElementById("name").value
                   }
@@ -341,11 +331,8 @@ class MapView extends React.Component {
           </div>
         </Modal>
         <div className="buttons">
-          <div id="report-button" onClick={() => this.beginReport()}>
-            Report
-          </div>
-          <div id="time-button" onClick={() => this.toggleDayNight()}>
-            Mode
+          <div id="publish-button" onClick={() => this.beginReport()}>
+            Publish Reporting
           </div>
         </div>
         {this.state === null ||
@@ -409,7 +396,7 @@ class MapView extends React.Component {
               return (
                 <Marker
                   position={{ lat: report.lat, lng: report.lng }}
-                  icon={warning}
+                  icon={report.severity === 4 ? special : warning}
                   animation={window.google.maps.Animation.DROP}
                   onClick={() => this.onMarkerOpen(report)}
                 />
@@ -437,6 +424,7 @@ class MapView extends React.Component {
               />
               <hr noshade="true" className="line" />
               <h2>{this.state.currentReport.description}</h2>
+
               <img
                 className="alert-image"
                 src={require(`./alert${this.state.currentReport.severity}.png`)}

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import _ from "lodash";
 import { compose } from "recompose";
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import Header from "../../components/Header";
+import AdminHeader from "../../components/AdminHeader";
 import { geolocated } from "react-geolocated";
-import MapView from "../../components/MapView";
+import AdminMapView from "../../components/AdminMapView";
 import styles from "./styles.css";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
@@ -64,8 +64,8 @@ class ReactGoogleMaps extends Component {
       <div className="loading-message">Geolocation is not enabled</div>
     ) : this.props.coords ? (
       <div className="map-page">
-        <Header key="header" />
-        <MapView
+        <AdminHeader />
+        <AdminMapView
           key="map"
           lat={this.props.coords.latitude}
           lng={this.props.coords.longitude}
