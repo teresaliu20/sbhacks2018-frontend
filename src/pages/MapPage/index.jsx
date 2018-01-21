@@ -9,10 +9,30 @@ import styles from "./styles.css";
 import { connect } from "react-redux";
 import { firebaseConnect, isLoaded, isEmpty } from "react-redux-firebase";
 import Modal from "react-modal";
+import $ from "jquery";
 
 const enhance = _.identity;
 
 class ReactGoogleMaps extends Component {
+  reportCrime() {
+    $.ajax({
+      url: "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/report",
+      type: "POST",
+      data: {
+        user: "userisuser",
+        name: "Fire",
+        description: "I saw smoke coming out of MCC.",
+        lat: "42.378036",
+        lng: "-71.118340",
+        time: "01-20-2018-17:44:56",
+        severity: "2"
+      },
+      success: function(result) {
+        alert(result);
+      }
+    });
+  }
+
   componentWillMount() {
     // var DATAREF = this.props.firebase.database().ref();
     // DATAREF.on("value", function(snapshot) {
@@ -39,6 +59,7 @@ class ReactGoogleMaps extends Component {
     console.log("Clicked report!");
     this.openModal();
   }
+
   render() {
     return !this.props.isGeolocationAvailable ? (
       <div className="loading-message">
@@ -60,8 +81,20 @@ class ReactGoogleMaps extends Component {
           lng={this.props.coords.longitude}
         />
         <Modal isOpen={this.state.isOpen} contentLabel="Modal">
-          <h1>Modal Content</h1>
-          <p>Etc.</p>
+          <button onClick={this.hideModal}>X</button>
+          <h1>Submit an Anonymous Report</h1>
+          <p>
+            Provide a keyword for what you are reporting:{" "}
+            <input type="text" name="name" />
+            <br />
+            Briefly describe what you are reporting:{" "}
+            <input type="text" name="description" />
+            <br />
+            How severe is the event you are reporting? (1-3){" "}
+            <input type="text" name="severity" />
+            <br />
+            <button onClick={this.reportCrime}>Submit</button>
+          </p>
         </Modal>
       </div>
     ) : (
