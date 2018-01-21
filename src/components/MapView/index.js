@@ -167,7 +167,8 @@ class MapView extends React.Component {
         console.log("RESP", response);
         $("#message").hide();
         this.hideModal();
-        var msg = tname + " " + tdesc + " " + " (text 'STOP' to unsubscribe)";
+        var msg =
+          tname + " - " + tdesc + " - " + " (text 'STOP' to unsubscribe)";
         axios
           .get(
             "https://us-central1-sbhacks-corefour.cloudfunctions.net/api/notifyAll/" +
