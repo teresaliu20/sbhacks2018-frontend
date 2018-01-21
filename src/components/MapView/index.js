@@ -302,7 +302,7 @@ class MapView extends React.Component {
                   accept="image/*"
                   name="avatar"
                   filename={file =>
-                    this.state.userID +
+                    this.state.user +
                     "-" +
                     document.getElementById("name").value
                   }
